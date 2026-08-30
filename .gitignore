@@ -1,0 +1,30 @@
+# Python
+grantflow-ai/.venv/
+grantflow-ai/.pytest_cache/
+grantflow-ai/.data/
+**/__pycache__/
+*.py[cod]
+
+# Env / secrets
+.env
+.env.local
+**/.env
+**/.env.local
+!.env.example
+!**/.env.example
+
+# Node / Next
+node_modules/
+web-app/node_modules/
+web-app/.next/
+web-app/out/
+*.tsbuildinfo
+next-env.d.ts
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json

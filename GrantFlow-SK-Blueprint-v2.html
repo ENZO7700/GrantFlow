@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"/><style>
+@page { size: A4; margin: 1.8cm; }
+body { font-family: Helvetica, Arial, sans-serif; font-size: 10pt; line-height: 1.35; color: #111; }
+h1 { font-size: 18pt; color: #0F172A; border-bottom: 1px solid #2563EB; padding-bottom: 4px; }
+h2 { font-size: 14pt; color: #0F172A; margin-top: 18px; }
+h3 { font-size: 12pt; color: #1E293B; }
+h4 { font-size: 11pt; color: #334155; }
+code, pre { font-family: Courier; font-size: 8pt; background: #F1F5F9; }
+pre { padding: 8px; white-space: pre-wrap; }
+table { border-collapse: collapse; width: 100%; margin: 8px 0; font-size: 9pt; }
+th, td { border: 1px solid #CBD5E1; padding: 4px 6px; vertical-align: top; }
+th { background: #E2E8F0; }
+blockquote { border-left: 3px solid #2563EB; margin-left: 0; padding-left: 10px; color: #334155; }
+a { color: #2563EB; }
+</style></head>
+<body><h1 id="technicky-a-produktovy-blueprint-narodna-b2b-pwa-platforma-pre-inteligentny-manazment-a-tvorbu-eu-dotacii-pre-slovenske-msp">Technický a Produktový Blueprint: Národná B2B PWA Platforma pre Inteligentný Manažment a Tvorbu EU Dotácií pre Slovenské MSP</h1>
+<table>
+<thead>
+<tr>
+<th>Meta</th>
+<th>Hodnota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pracovný názov</strong></td>
+<td>GrantFlow Slovensko (GrantFlow.sk)</td>
+</tr>
+<tr>
+<td><strong>Verzia</strong></td>
+<td><strong>v2 — AI/DNSH Deep Spec</strong></td>
+</tr>
+<tr>
+<td><strong>Dátum špecifikácie</strong></td>
+<td>August 2026</td>
+</tr>
+<tr>
+<td><strong>Cieľová skupina</strong></td>
+<td>Slovenské malé a stredné podniky (MSP), startupy, dotačné a účtovné kancelárie, priemyselné klastre</td>
+</tr>
+<tr>
+<td><strong>Formát riešenia</strong></td>
+<td>Progressive Web Application (PWA) s Offline-First architektúrou, Cloud Backendom a Špecializovaným RAG AI Copilotom</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="obsah">Obsah</h2>
+<ol>
+<li><a href="#1-exekutívne-zhrnutie-a-strategická-vízia">Exekutívne zhrnutie a Strategická Vízia</a></li>
+<li><a href="#2-architektúra-systému-a-technologický-stack">Architektúra Systému a Technologický Stack</a></li>
+<li><a href="#3-špecifikácia-ai-a-rag-architektúry-retrieval-augmented-generation">Špecifikácia AI a RAG Architektúry</a></li>
+<li><a href="#4-uxui-dizajn-a-pwa-špecifikácia">UX/UI Dizajn a PWA Špecifikácia</a></li>
+<li><a href="#5-dátový-model-databázová-schéma">Dátový Model</a></li>
+<li><a href="#6-bezpečnosť-zabezpečenie-dát-zdr-a-gdpr-compliance">Bezpečnosť, ZDR a GDPR</a></li>
+<li><a href="#7-kompletný-produktový-backlog-epics--user-stories">Produktový Backlog</a></li>
+<li><a href="#8-9-mesačná-implementačná-roadmapa">Implementačná Roadmapa</a></li>
+<li><a href="#9-go-to-market-gtm-stratégia-a-kľúčové-metriky-pre-slovensko">Go-To-Market a KPI</a></li>
+<li><a href="#10-changelog-v2">Changelog v2</a></li>
+</ol>
+<hr>
+<h2 id="1-exekutivne-zhrnutie-a-strategicka-vizia">1. Exekutívne zhrnutie a Strategická Vízia</h2>
+<h3 id="11-problem-na-slovenskom-trhu-v-roku-2026">1.1 Problém na slovenskom trhu v roku 2026</h3>
+<p>Slovenské MSP dlhodobo čelia nízkej miere a pomalému tempu čerpania európskych štrukturálnych a investičných fondov (EŠIF), Programu Slovensko 2021–2027 a Plánu obnovy a odolnosti. Hlavnými bariérami sú:</p>
+<ul>
+<li>
+<p><strong>Informačná fragmentácia a neprehľadnosť:</strong> Informácie o výzvach sú rozptýlené medzi ITMS2021+, rezortné weby (MIRRI, MH SR, MŽP SR, SIEA, SBA, APVV) a portály priamo riadených programov EU (Horizon Europe, Digital Europe).</p>
+</li>
+<li>
+<p><strong>Extrémna administratívna zložitosť:</strong> Vyhodnocovanie oprávnenosti žiadateľa (SME test, de minimis kumulácia, NACE kódy, finančné zdravie) a princípov environmentálnej taxonómie (DNSH – Do No Significant Harm) trvá desiatky hodín kvalifikovanej práce.</p>
+</li>
+<li>
+<p><strong>Vysoká cena tradičného poradenstva:</strong> Dotačné agentúry si účtujú fixné vstupné poplatky (1 000 – 3 000 €) plus 5 – 10 % z úspešnej dotácie, čo je pre začínajúce a menšie podniky často finančne nedostupné.</p>
+</li>
+<li>
+<p><strong>Chybovosť žiadostí:</strong> Viac ako 45 % podaných projektov na Slovensku zlyháva na formálnych chybách, nesúlade rozpočtu s aktivitami alebo zle popísaných merateľných ukazovateľoch.</p>
+</li>
+</ul>
+<h3 id="12-hodnotova-ponuka-value-proposition-grantflowsk">1.2 Hodnotová ponuka (Value Proposition) GrantFlow.sk</h3>
+<p>GrantFlow.sk transformuje dotačný proces na Slovensku prostredníctvom modernej, inštalovateľnej PWA aplikácie, ktorá:</p>
+<ol>
+<li>
+<p><strong>Automaticky prepája profil podniku (cez IČO)</strong> s dátami z Registra účtovných závierok (RÚZ), FinStatu a RPO, čím okamžite identifikuje 100% oprávnené výzvy bez nutnosti manuálneho vypĺňania dotazníkov.</p>
+</li>
+<li>
+<p><strong>Využíva špecializovaného RAG AI Copilota</strong> trénovaného na slovenských metodických príručkách a ITMS formulároch, ktorý funguje ako autonómny projektový asistent a garant dodržania formálnych aj vecných štandardov. Copilot stojí na <strong>štyroch merateľných pilieroch</strong> (detailná technická špecifikácia v §3):</p>
+</li>
+</ol>
+<h4 id="pilier-a-hlbkova-domenova-rag-znalost">Pilier A — Hĺbková doménová RAG znalosť</h4>
+<p>Systém nepracuje so všeobecným generovaním textu, ale striktne vyhľadáva a cituje pravidlá z aktuálnych príručiek pre žiadateľa (Program Slovensko 2021–2027, Plán obnovy, Horizon Europe, výzvy SIEA, MIRRI, MH SR), špecifických hodnotiacich kritérií a schém štátnej pomoci.</p>
+<ul>
+<li><strong>Merateľný benefit:</strong> ≥ 95 % generovaných tvrdení o pravidlách výzvy má povinnú citáciu chunku (<code>grant_call_chunks.id</code>); refusal rate pri chýbajúcom kontexte ≥ 90 % (žiadna „vymyslená“ metodika).</li>
+<li><strong>Technický detail:</strong> §3.1 Hybrid Search, §3.3 Prevencia halucinácií.</li>
+</ul>
+<h4 id="pilier-b-interaktivna-tvorba-dokumentacie-a-intervencna-logika">Pilier B — Interaktívna tvorba dokumentácie a intervenčná logika</h4>
+<p>Copilot asistuje pri formulácii kľúčových textových sekcií žiadosti (východiskový stav, inovatívny charakter, pridaná hodnota, popis aktivít a harmonogram). Automaticky uplatňuje intervenčnú logiku EŠIF – prepája stanovené ciele s merateľnými ukazovateľmi (KPIs), výstupmi (outputs) a výsledkami (results), pričom striktne rešpektuje limity počtu znakov podľa formulárov ITMS2021+.</p>
+<ul>
+<li><strong>Merateľný benefit:</strong> skrátenie času na prvý draft kapitoly o ≥ 70 %; 100 % draftov rešpektuje <code>character_limit</code> z ITMS mapovania.</li>
+<li><strong>Technický detail:</strong> §3.2 Agent 3 (Proposal Drafter), §3.4 Metodika tvorby dokumentácie.</li>
+</ul>
+<h4 id="pilier-c-automatizovany-a-rigorozny-dnsh-audit">Pilier C — Automatizovaný a rigorózny DNSH Audit</h4>
+<p>Predbežne vyhodnocuje projektový zámer voči všetkým 6 environmentálnym cieľom EÚ taxonómie (zmierňovanie zmeny klímy, adaptácia, ochrana vodných zdrojov, prechod na obehové hospodárstvo, prevencia znečisťovania, ochrana biodiverzity). Identifikuje rizikové aktivity, navrhuje kompenzačné a mitigation opatrenia a generuje hotové, štruktúrované textové samohodnotenie DNSH pripravené ako povinná príloha k žiadosti.</p>
+<ul>
+<li><strong>Merateľný benefit:</strong> kompletný 6-cieľový report do ≤ 90 s; každý FAIL/CONDITIONAL nález má severity + mitigation text + citáciu metodiky.</li>
+<li><strong>Technický detail:</strong> §3.2 Agent 2, §3.5 DNSH Audit.</li>
+</ul>
+<h4 id="pilier-d-prediktivny-hodnotiaci-skoring-a-eliminacia-chyb">Pilier D — Prediktívny hodnotiaci skóring a eliminácia chýb</h4>
+<p>Systém simuluje bodové hodnotenie nezávislého odborného hodnotiteľa, upozorňuje na vágne formulácie, nepreukázateľnú udržateľnosť projektu alebo nesúlad rozpočtových položiek s oprávnenými výdavkami výzvy, čím radikálne znižuje mieru zamietnutia v 1. a 2. kole hodnotenia.</p>
+<ul>
+<li><strong>Merateľný benefit:</strong> cieľová úspešnosť projektov pripravených s Copilotom &gt; 75 % v 1. kole (formálna + vecná správnosť); red-flag detekcia pred exportom.</li>
+<li><strong>Technický detail:</strong> §3.2 Agent 1 &amp; 4, §3.6 Prediktívny skóring.</li>
+</ul>
+<ol start="3">
+<li><strong>Funguje kdekoľvek ako odľahčená PWA</strong>, ktorá posiela okamžité Web Push notifikácie pri vyhlásení novej výzvy, zmene alokácie alebo blížiacom sa termíne uzávierky, a to aj v offline režime na mobilných zariadeniach a počítačoch.</li>
+</ol>
+<hr>
+<h2 id="2-architektura-systemu-a-technologicky-stack">2. Architektúra Systému a Technologický Stack</h2>
+<p>Architektúra je navrhnutá ako modulárny, vysoko škálovateľný a bezpečný cloud-native systém s dôrazom na rýchlosť odozvy PWA a suverenitu firemných dát v súlade s GDPR.</p>
+<pre><code class="language-mermaid">flowchart TB
+  subgraph client [Client_Tier_PWA]
+    Next[Next.js_15_App_Router]
+    RQ[TanStack_Query_IndexedDB]
+    SW[Workbox_Service_Worker]
+    WA[WebAuthn_Push]
+  end
+
+  subgraph gateway [API_Gateway_Tier]
+    CF[Cloudflare_WAF_DDoS_Edge]
+    Nest[NestJS_Business_API]
+    Fast[FastAPI_AI_ETL]
+  end
+
+  subgraph core [Core_Business]
+    Auth[Auth_RBAC_eIDAS]
+    Match[Financial_Matcher]
+    WS[Project_Workspace]
+    Bill[Billing_Invoicing]
+  end
+
+  subgraph etl [Data_Scraping_ETL]
+    ITMS[ITMS2021_Harvester]
+    RUZ[RUZ_FinStat_Sync]
+    SEDIA[SEDIA_CORDIS_Sync]
+    PDF[PDF_Vector_Pipeline]
+  end
+
+  subgraph ai [AI_RAG_Orchestrator]
+    LG[LangGraph_LlamaIndex]
+    HS[Hybrid_Search_Engine]
+    LLM[LLM_Multi_Model_Gateway]
+  end
+
+  subgraph storage [Storage_Persistence]
+    PG[(PostgreSQL_16_pgvector)]
+    Redis[(Redis_7_4_BullMQ)]
+    S3[(S3_R2_EU_Region)]
+  end
+
+  client --&gt;|HTTPS_WSS_gRPCWeb| gateway
+  Nest --&gt; core
+  Fast --&gt; etl
+  Fast --&gt; ai
+  core --&gt; storage
+  etl --&gt; storage
+  ai --&gt; storage
+</code></pre>
+<h3 id="21-frontend-pwa-stack">2.1 Frontend &amp; PWA Stack</h3>
+<ul>
+<li><strong>Framework:</strong> Next.js 15+ (App Router, Server Components pre bleskový SSR a SEO verejných výziev) s React 19.</li>
+<li><strong>PWA Engine:</strong> <code>@ducanh2912/next-pwa</code> alebo vlastný Workbox Service Worker:</li>
+<li>CacheFirst stratégia pre statické assety, fonty a UI komponenty.</li>
+<li>NetworkFirst s fallbackom do IndexedDB pre detail výziev a pracovné koncepty žiadostí.</li>
+<li>Background Sync API pre odosielanie rozpracovaných textov po obnovení internetového pripojenia.</li>
+<li>Push API &amp; Notification API pre systémové notifikácie na zariadeniach (iOS 16.4+, Android, macOS, Windows).</li>
+<li><strong>UI &amp; Styling:</strong> Tailwind CSS, Radix UI primitives, shadcn/ui, Lucide Icons, Framer Motion pre mikrointerakcie.</li>
+<li><strong>Offline State Management:</strong> TanStack Query (React Query) s <code>persistQueryClient</code> integrovaným na IndexedDB (cez <code>idb-keyval</code>).</li>
+</ul>
+<h3 id="22-backend-asynchronne-ulohy">2.2 Backend &amp; Asynchrónne Úlohy</h3>
+<ul>
+<li><strong>API Engine:</strong> NestJS (TypeScript) pre hlavnú biznis logiku, autentifikáciu a správu používateľov; FastAPI (Python 3.12) pre AI a dátové pipeline.</li>
+<li><strong>Fronting &amp; Security:</strong> Cloudflare WAF, SSL termination, DDoS ochrana, Edge Caching verejných dát.</li>
+<li><strong>Fronta a Worker systém:</strong> BullMQ na báze Redis Cluster pre riadenie asynchrónnych úloh (parsovanie stoviek PDF dokumentov, generovanie AI exportov, nočné synchronizácie ITMS).</li>
+</ul>
+<h3 id="23-databazy-a-uloziska">2.3 Databázy a Úložiská</h3>
+<ul>
+<li><strong>Hlavná databáza &amp; Vektorový Index:</strong> PostgreSQL 16 spravovaný cez Supabase / Self-hosted na AWS vo Frankfurte (EU), s rozšírením <code>pgvector</code> pre vektorové ukladanie sémantických embeddingov s HNSW indexovaním.</li>
+<li><strong>Cache &amp; Key-Value:</strong> Redis 7.4 (distribuované zámky, session store, real-time notifikácie).</li>
+<li><strong>Dokumentové úložisko:</strong> Cloudflare R2 / AWS S3 (EU-Central-1) so šifrovaním AES-256 v pokoji (at rest) pre prílohy výziev, výkazy firiem a vygenerované projektové žiadosti.</li>
+</ul>
+<h3 id="24-datove-integracie-pre-slovensky-trh">2.4 Dátové Integrácie pre Slovenský Trh</h3>
+<ol>
+<li><strong>ITMS2021+ Open Data API &amp; Harvester:</strong> Pravidelné sťahovanie otvorených dát o vyhlásených výzvach, harmonogramoch, alokáciách a zmenách metodických pokynov.</li>
+<li><strong>Register účtovných závierok (RÚZ) API:</strong> Automatické načítanie súvah a výsledoviek po zadaní IČO žiadateľa za posledné 3 uzavreté účtovné obdobia.</li>
+<li><strong>Register právnických osôb (RPO) / Obchodný a Živnostenský register SR:</strong> Overenie štatutárov, dátumu vzniku podniku a SK NACE klasifikácie ekonomických činností.</li>
+<li><strong>Centrálny register zmlúv (CRZ) a Register partnerov verejného sektora (RPVS):</strong> Overenie bezúhonnosti a absencie nedoplatkov (ak sú dáta verejné).</li>
+<li><strong>EU Funding &amp; Tenders Portal (SEDIA) &amp; CORDIS API:</strong> Pre priame európske výzvy (Horizon Europe, STEP, EIC).</li>
+</ol>
+<hr>
+<h2 id="3-specifikacia-ai-a-rag-architektury-retrieval-augmented-generation">3. Špecifikácia AI a RAG Architektúry (Retrieval-Augmented Generation)</h2>
+<p>Tradičné jazykové modely trpia halucináciami a nepoznajú špecifické pravidlá oprávnenosti konkrétnych slovenských výziev. GrantFlow.sk využíva hybridný RAG systém s deterministickým predfiltrovaním, povinným groundingom a špecializovanými sub-agentmi.</p>
+<pre><code class="language-mermaid">flowchart TD
+  docs[Documents_ITMS_Metodiky_Prirucky] --&gt; parse[PDF_DOCX_Parsing_Engine]
+  parse --&gt; chunk[Semantic_Chunking_Markdown]
+  parse --&gt; rules[Rule_Extraction_JSON_Schema]
+  chunk --&gt; embed[Embedding_text_embedding_3_large]
+  embed --&gt; pgvec[(PostgreSQL_pgvector)]
+  rules --&gt; matcher[Deterministic_Matcher]
+  query[UserQuery_FirmProfile] --&gt; matcher
+  query --&gt; hybrid[Hybrid_Search_Dense_BM25_RRF]
+  pgvec --&gt; hybrid
+  hybrid --&gt; rerank[Cohere_Rerank_v3]
+  matcher --&gt;|hardFail| block[UI_Block_or_Warn]
+  matcher --&gt;|pass| gate[Citation_Grounding_Gate]
+  rerank --&gt; gate
+  gate --&gt;|ungrounded| refuse[Refuse_or_Clarify]
+  gate --&gt;|grounded| orch[LangGraph_Orchestrator]
+  orch --&gt; a1[Match_Feasibility]
+  orch --&gt; a2[DNSH_Auditor]
+  orch --&gt; a3[Proposal_Drafter]
+  orch --&gt; a4[Budget_KPI_Validator]
+  a1 --&gt; out[AI_Draft_DNSH_Score]
+  a2 --&gt; out
+  a3 --&gt; out
+  a4 --&gt; out
+</code></pre>
+<h3 id="31-datova-pipeline-a-vektorizacia">3.1 Dátová Pipeline a Vektorizácia</h3>
+<h4 id="311-semanticke-chunkovanie-dokumentov">3.1.1 Sémantické Chunkovanie dokumentov</h4>
+<p>Metodické príručky k výzvam sú často 150-stranové dokumenty. Systém ich delí podľa logických celkov (Kapitoly, Oprávnené výdavky, Merateľné ukazovatele, Prílohy) s presným uchovaním hierarchie a metadát:</p>
+<pre><code class="language-json">{
+  &quot;grant_call_id&quot;: &quot;uuid&quot;,
+  &quot;document_title&quot;: &quot;Príručka pre žiadateľa – PSK-SIEA-004&quot;,
+  &quot;section_name&quot;: &quot;Oprávnené výdavky&quot;,
+  &quot;section_path&quot;: [&quot;3&quot;, &quot;3.2&quot;, &quot;3.2.1&quot;],
+  &quot;page_from&quot;: 41,
+  &quot;page_to&quot;: 48,
+  &quot;type&quot;: &quot;ELIGIBILITY_RULES&quot;,
+  &quot;version&quot;: &quot;1.2&quot;,
+  &quot;source_url&quot;: &quot;https://...&quot;
+}
+</code></pre>
+<h4 id="312-hybridne-vyhladavanie-hybrid-search">3.1.2 Hybridné Vyhľadávanie (Hybrid Search)</h4>
+<ul>
+<li><strong>Dense Retrieval:</strong> Vektorové vyhľadávanie pomocou viacjazyčných embeddingov (OpenAI <code>text-embedding-3-large</code> alebo lokálny <code>e5-mistral-7b-instruct</code>).</li>
+<li><strong>Lexical Retrieval:</strong> Fulltextové vyhľadávanie BM25 v PostgreSQL pre presné zhody dotačných kódov, čísel výziev a špecifických termínov (napr. „kód výzvy PSK-SIEA-002-2026“).</li>
+<li><strong>Reciprocal Rank Fusion (RRF) &amp; Reranking:</strong> Spojenie výsledkov a ich pre-skórovanie pomocou Cohere Rerank v3.</li>
+<li><strong>SLA:</strong> p95 latency hybrid retrieve + rerank &lt; 300 ms pri ≤ 100 000 chunkov; HNSW cosine lookup &lt; 120 ms.</li>
+</ul>
+<h4 id="313-deterministicky-rule-engine-predfiltrovanie">3.1.3 Deterministický Rule Engine (Predfiltrovanie)</h4>
+<p>AI nie je využívaná na triviálne matematické a formálne podmienky. Pred spustením RAG beží deterministický kód, ktorý skontroluje:</p>
+<table>
+<thead>
+<tr>
+<th>Kontrola</th>
+<th>Zdroj dát</th>
+<th>Výsledok</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SK NACE vs. povolené NACE výzvy</td>
+<td><code>organizations.sk_nace_code</code> + <code>eligibility_rule_extractions</code></td>
+<td>PASS / FAIL</td>
+</tr>
+<tr>
+<td>Región realizácie (BA vs. menej rozvinuté)</td>
+<td><code>region_nuts3</code></td>
+<td>PASS / FAIL / WARN</td>
+</tr>
+<tr>
+<td>Veľkostná kategória MSP</td>
+<td>zamestnanci + obrat (EK definícia)</td>
+<td>PASS / FAIL</td>
+</tr>
+<tr>
+<td>De minimis limit 300 000 € / 3 roky</td>
+<td><code>de_minimis_used_eur</code></td>
+<td>PASS / WARN</td>
+</tr>
+<tr>
+<td>Podnik v ťažkostiach</td>
+<td><code>organization_financial_snapshots</code></td>
+<td>PASS / FAIL</td>
+</tr>
+</tbody>
+</table>
+<p>Pri hard FAIL sa LLM nevolá na „obchádzanie“ pravidla; UI zobrazí dôvod a odporúčané nápravné kroky.</p>
+<hr>
+<h3 id="32-specializovane-ai-asistenty-sub-agents">3.2 Špecializované AI Asistenty (Sub-Agents)</h3>
+<p>Orchestrátor (LangGraph) riadi stavový graf. Každý agent má pevnú JSON schému výstupu (Zod / Pydantic), tooly a handoff pravidlá.</p>
+<pre><code class="language-mermaid">stateDiagram-v2
+  [*] --&gt; PreCheck
+  PreCheck --&gt; Retrieve: pass
+  PreCheck --&gt; HardStop: fail
+  Retrieve --&gt; GroundingGate
+  GroundingGate --&gt; Route: grounded
+  GroundingGate --&gt; Clarify: ungrounded
+  Route --&gt; MatchAgent
+  Route --&gt; DnshAgent
+  Route --&gt; DraftAgent
+  Route --&gt; BudgetAgent
+  MatchAgent --&gt; ScoreMerge
+  DnshAgent --&gt; ScoreMerge
+  DraftAgent --&gt; ScoreMerge
+  BudgetAgent --&gt; ScoreMerge
+  ScoreMerge --&gt; PersistAudit
+  PersistAudit --&gt; [*]
+  Clarify --&gt; [*]
+  HardStop --&gt; [*]
+</code></pre>
+<h4 id="agent-1-match-feasibility-evaluator">Agent 1: Match &amp; Feasibility Evaluator</h4>
+<table>
+<thead>
+<tr>
+<th>Položka</th>
+<th>Špecifikácia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Účel</strong></td>
+<td>Vyhodnotiť šancu projektu 0–100 % s odôvodnením a zoznamom nesplnených podmienok</td>
+</tr>
+<tr>
+<td><strong>Vstupy</strong></td>
+<td>Profil firmy, <code>grant_call_id</code>, brief projektu, výsledok Rule Engine</td>
+</tr>
+<tr>
+<td><strong>Tooly</strong></td>
+<td><code>hybrid_retrieve</code>, <code>get_eligibility_rules</code>, <code>get_financial_snapshot</code></td>
+</tr>
+<tr>
+<td><strong>Výstup</strong></td>
+<td><code>MatchResult</code> JSON</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-json">{
+  &quot;score_0_100&quot;: 88,
+  &quot;hard_filters&quot;: [
+    {&quot;code&quot;: &quot;NACE&quot;, &quot;status&quot;: &quot;PASS&quot;, &quot;detail&quot;: &quot;62.01 v zozname oprávnených&quot;},
+    {&quot;code&quot;: &quot;REGION&quot;, &quot;status&quot;: &quot;PASS&quot;, &quot;detail&quot;: &quot;SK032 menej rozvinutý región&quot;}
+  ],
+  &quot;soft_factors&quot;: [
+    {&quot;factor&quot;: &quot;technological_fit&quot;, &quot;weight&quot;: 0.3, &quot;score&quot;: 0.9},
+    {&quot;factor&quot;: &quot;call_focus_alignment&quot;, &quot;weight&quot;: 0.4, &quot;score&quot;: 0.85}
+  ],
+  &quot;unmet_conditions&quot;: [],
+  &quot;risks_to_verify&quot;: [&quot;Overiť max. intenzitu pomoci pre malý podnik&quot;],
+  &quot;citations&quot;: [{&quot;chunk_id&quot;: &quot;uuid&quot;, &quot;quote&quot;: &quot;...&quot;, &quot;page&quot;: 12}]
+}
+</code></pre>
+<h4 id="agent-2-dnsh-auditor">Agent 2: DNSH Auditor</h4>
+<table>
+<thead>
+<tr>
+<th>Položka</th>
+<th>Špecifikácia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Účel</strong></td>
+<td>Kontrola voči 6 cieľom EÚ taxonómie + mitigation + samohodnotenie</td>
+</tr>
+<tr>
+<td><strong>Vstupy</strong></td>
+<td>Projektový zámer, aktivity, lokalita, typ investície, RAG kontext DNSH metodík</td>
+</tr>
+<tr>
+<td><strong>Tooly</strong></td>
+<td><code>hybrid_retrieve(type=DNSH)</code>, <code>activity_risk_taxonomy</code>, <code>persist_dnsh_assessment</code></td>
+</tr>
+<tr>
+<td><strong>Výstup</strong></td>
+<td><code>DnshAssessment</code> (pozri §3.5)</td>
+</tr>
+</tbody>
+</table>
+<p>Handoff: pri akomkoľvek <code>FAIL</code> nastaví <code>grant_applications.dnsh_passed = false</code> a blokuje export „pripravené na podanie“ až do vyriešenia alebo explicitného override vlastníkom (auditované).</p>
+<h4 id="agent-3-proposal-drafter">Agent 3: Proposal Drafter</h4>
+<table>
+<thead>
+<tr>
+<th>Položka</th>
+<th>Špecifikácia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Účel</strong></td>
+<td>Generovať texty ITMS polí s limitem znakov a terminológiou hodnotiteľov</td>
+</tr>
+<tr>
+<td><strong>Vstupy</strong></td>
+<td><code>section_key</code>, brief používateľa, hodnotiace kritériá výzvy, predchádzajúce sekcie (pre konzistenciu)</td>
+</tr>
+<tr>
+<td><strong>Tooly</strong></td>
+<td><code>hybrid_retrieve</code>, <code>get_itms_field_map</code>, <code>count_chars</code>, <code>rewrite</code></td>
+</tr>
+<tr>
+<td><strong>Výstup</strong></td>
+<td><code>DraftSection</code></td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-json">{
+  &quot;section_key&quot;: &quot;INNOVATION&quot;,
+  &quot;title&quot;: &quot;Inovatívny charakter riešenia&quot;,
+  &quot;content&quot;: &quot;...&quot;,
+  &quot;character_count&quot;: 1840,
+  &quot;character_limit&quot;: 2000,
+  &quot;citations&quot;: [{&quot;chunk_id&quot;: &quot;uuid&quot;, &quot;used_for&quot;: &quot;terminology&quot;}],
+  &quot;intervention_links&quot;: {
+    &quot;objectives&quot;: [&quot;Zvýšiť produktivitu výroby o 15 %&quot;],
+    &quot;outputs&quot;: [&quot;Nasadený AI modul prediktívnej údržby&quot;],
+    &quot;results&quot;: [&quot;Zníženie neplánovaných odstávok o 20 %&quot;],
+    &quot;kpis&quot;: [{&quot;code&quot;: &quot;RCO01&quot;, &quot;target&quot;: 1, &quot;unit&quot;: &quot;ks&quot;}]
+  },
+  &quot;actions_available&quot;: [&quot;FORMALIZE&quot;, &quot;SHORTEN&quot;, &quot;ADD_KPIS&quot;]
+}
+</code></pre>
+<h4 id="agent-4-budget-kpi-validator">Agent 4: Budget &amp; KPI Validator</h4>
+<table>
+<thead>
+<tr>
+<th>Položka</th>
+<th>Špecifikácia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Účel</strong></td>
+<td>Konzistencia rozpočtu, harmonogramu a merateľných ukazovateľov; stropy oprávnených výdavkov</td>
+</tr>
+<tr>
+<td><strong>Vstupy</strong></td>
+<td>Položky rozpočtu, KPIs, pravidlá výzvy (max % riadenie, nepriame, neoprávnené položky)</td>
+</tr>
+<tr>
+<td><strong>Tooly</strong></td>
+<td><code>get_budget_caps</code>, <code>list_ineligible_costs</code>, <code>math_validate</code></td>
+</tr>
+<tr>
+<td><strong>Výstup</strong></td>
+<td><code>BudgetValidation</code> (deterministické výpočty + LLM len na vysvetlenie nálezov)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="33-prevencia-halucinacii-grounding-policy">3.3 Prevencia Halucinácií (Grounding Policy)</h3>
+<p>GrantFlow uplatňuje <strong>defense-in-depth</strong> proti vymysleným pravidlám, limítom a citáciám.</p>
+<h4 id="331-povinne-citacie-a-grounding-gate">3.3.1 Povinné citácie a grounding gate</h4>
+<ol>
+<li>Každé tvrdenie o pravidle výzvy, limitoch, oprávnenosti alebo DNSH metodike musí mať aspoň jednu citáciu <code>chunk_id</code>.</li>
+<li><strong>Grounding Gate</strong> pred finalizáciou odpovede:
+   - Extrahuje claims zo draftu.
+   - Overí, či claim je podporený v retrieved kontexte (NLI / entailment alebo lexical overlap + rerank score).
+   - Ak <code>grounding_score &lt; 0.72</code> (konfigurovateľný threshold) → <strong>refusal</strong> alebo <strong>clarify</strong> (nie voľné doformulovanie).</li>
+<li>Zakázané: inventovať čísla výziev, dátumy uzávierok, % intenzity pomoci, NACE zoznamy.</li>
+</ol>
+<h4 id="332-refusal-a-clarify-mody">3.3.2 Refusal a clarify módy</h4>
+<table>
+<thead>
+<tr>
+<th>Situácia</th>
+<th>Správanie systému</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Žiadny relevantný chunk (top rerank &lt; 0.25)</td>
+<td>„V dostupnej metodike výzvy som nenašiel…“ + návrh, čo doplniť</td>
+</tr>
+<tr>
+<td>Konflikt medzi verziami dokumentu</td>
+<td>Upozornenie na novšiu verziu + diff log</td>
+</tr>
+<tr>
+<td>Hard FAIL z Rule Engine</td>
+<td>Blokácia AI „obchádzania“; iba vysvetlenie FAIL</td>
+</tr>
+<tr>
+<td>Používateľ žiada právnu garanciu</td>
+<td>Disclaimer: rozhodujúce je oficiálne znenie riadiaceho orgánu</td>
+</tr>
+</tbody>
+</table>
+<h4 id="333-deterministicke-predfiltre-a-oddelenie-roli">3.3.3 Deterministické predfiltre a oddelenie rolí</h4>
+<ul>
+<li>Matematika (súčty, %, de minimis, SME test) = <strong>kód</strong>, nie LLM.</li>
+<li>LLM = jazyk, štruktúra, syntéza, mitigation návrhy <strong>podmienené</strong> kontextom.</li>
+<li>Multi-tenant RLS: RAG retrieve vždy filtruje <code>organization_id</code> / <code>grant_call_id</code>; žiadny cross-tenant kontext.</li>
+</ul>
+<h4 id="334-human-in-the-loop">3.3.4 Human-in-the-loop</h4>
+<ul>
+<li>Každý AI draft je označený <code>last_edited_by = 'AI_ASSISTANT'</code> až do explicitného prijatia používateľom.</li>
+<li>Diff view: AI návrh vs. aktuálny text.</li>
+<li>Override DNSH FAIL vyžaduje rolu Owner + dôvod (immutable audit).</li>
+</ul>
+<h4 id="335-eval-set-golden-questions">3.3.5 Eval set (golden questions)</h4>
+<p>Minimálne 200 golden Q&amp;A na SK metodikách (NACE, limity, DNSH scenáre). Metriky:</p>
+<ul>
+<li><strong>Faithfulness</strong> ≥ 0.90</li>
+<li><strong>Citation precision</strong> ≥ 0.85</li>
+<li><strong>Refusal correctness</strong> ≥ 0.90</li>
+<li>Regresný gate pred deployom modelu / promptu</li>
+</ul>
+<hr>
+<h3 id="34-metodika-tvorby-projektovej-dokumentacie">3.4 Metodika Tvorby Projektovej Dokumentácie</h3>
+<h4 id="341-intervencna-logika-esif">3.4.1 Intervenčná logika EŠIF</h4>
+<p>Copilot vynucuje reťazec:</p>
+<pre><code class="language-text">Špecifický cieľ → Aktivity → Outputs (výstupy) → Results (výsledky) → KPIs / Merateľné ukazovatele
+</code></pre>
+<p>Pri generovaní sekcie „Spôsob realizácie“ systém odmietne text, ktorý popisuje aktivity bez väzby na aspoň jeden output a jeden merateľný ukazovateľ (ak výzva ukazovatele vyžaduje).</p>
+<h4 id="342-mapovanie-na-itms2021-polia">3.4.2 Mapovanie na ITMS2021+ polia</h4>
+<table>
+<thead>
+<tr>
+<th><code>section_key</code></th>
+<th>ITMS / formulárové pole (príklad)</th>
+<th>Typický limit znakov</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BASELINE</code></td>
+<td>Opis východiskového stavu</td>
+<td>2000–4000</td>
+</tr>
+<tr>
+<td><code>OBJECTIVES</code></td>
+<td>Ciele projektu</td>
+<td>1500–3000</td>
+</tr>
+<tr>
+<td><code>INNOVATION</code></td>
+<td>Inovatívnosť riešenia</td>
+<td>2000</td>
+</tr>
+<tr>
+<td><code>IMPLEMENTATION</code></td>
+<td>Spôsob realizácie aktivít</td>
+<td>3000–5000</td>
+</tr>
+<tr>
+<td><code>IMPACT</code></td>
+<td>Pridaná hodnota / dopad</td>
+<td>2000</td>
+</tr>
+<tr>
+<td><code>SUSTAINABILITY</code></td>
+<td>Udržateľnosť projektu</td>
+<td>1500</td>
+</tr>
+<tr>
+<td><code>BUDGET_JUSTIFICATION</code></td>
+<td>Zdôvodnenie rozpočtu</td>
+<td>podľa prílohy</td>
+</tr>
+<tr>
+<td><code>DNSH</code></td>
+<td>Samohodnotenie DNSH</td>
+<td>štruktúrovaný report</td>
+</tr>
+</tbody>
+</table>
+<p>Presné limity sa načítajú z <code>itms_field_map</code> per <code>grant_call_id</code> (extrahované parserom alebo manuálne kalibrované).</p>
+<h4 id="343-tone-terminology-guidelines">3.4.3 Tone &amp; terminology guidelines</h4>
+<ul>
+<li>Preferovať terminológiu z príručky výzvy (citované synonyma).</li>
+<li>Zakázať vágne frázy bez dôkazu: „špičkové“, „revolučné“, „najlepšie na trhu“ bez kvantifikácie.</li>
+<li>Každé tvrdenie o dopade má byť merateľné (baseline → target → jednotka → termín).</li>
+<li>Rewrite actions v UI: <strong>Preformulovať formálnejšie</strong>, <strong>Skrátiť</strong>, <strong>Doplniť merateľné ukazovatele</strong>.</li>
+</ul>
+<h4 id="344-workflow-v-workspace">3.4.4 Workflow v workspace</h4>
+<ol>
+<li>Používateľ zadá brief (3–10 viet) alebo doplní bullet points.</li>
+<li>Rule Engine + Retrieve + Grounding.</li>
+<li>Proposal Drafter vygeneruje draft + intervention links.</li>
+<li>Budget/KPI Validator skontroluje konzistenciu.</li>
+<li>Predictive Scorer (§3.6) zobrazí compliance skóre sekcie.</li>
+<li>Používateľ edituje → sync do <code>application_sections</code> + záznam v <code>ai_generations</code>.</li>
+</ol>
+<hr>
+<h3 id="35-dnsh-audit-6-cielov-eu-taxonomie">3.5 DNSH Audit — 6 Cieľov EÚ Taxonómie</h3>
+<p>DNSH (Do No Significant Harm) je formálna brána mnohých výziev Programu Slovensko a Plánu obnovy. Agent 2 produkuje štruktúrované samohodnotenie pripravené ako príloha.</p>
+<h4 id="351-celkovy-flow">3.5.1 Celkový flow</h4>
+<pre><code class="language-mermaid">flowchart TD
+  brief[Project_Brief_Activities] --&gt; classify[Activity_Risk_Classifier]
+  classify --&gt; retrieveDnsh[Retrieve_DNSH_Guidance]
+  retrieveDnsh --&gt; g1[Climate_Mitigation]
+  retrieveDnsh --&gt; g2[Climate_Adaptation]
+  retrieveDnsh --&gt; g3[Water]
+  retrieveDnsh --&gt; g4[Circular]
+  retrieveDnsh --&gt; g5[Pollution]
+  retrieveDnsh --&gt; g6[Biodiversity]
+  g1 --&gt; merge[Merge_Findings]
+  g2 --&gt; merge
+  g3 --&gt; merge
+  g4 --&gt; merge
+  g5 --&gt; merge
+  g6 --&gt; merge
+  merge --&gt; decide{Overall_Status}
+  decide --&gt;|all_PASS| passNode[dnsh_passed_true]
+  decide --&gt;|any_CONDITIONAL| cond[Require_Mitigations]
+  decide --&gt;|any_FAIL| failNode[dnsh_passed_false]
+  passNode --&gt; report[Generate_SelfAssessment_PDF]
+  cond --&gt; report
+  failNode --&gt; report
+</code></pre>
+<h4 id="352-struktura-nalezu-per-ciel">3.5.2 Štruktúra nálezu (per cieľ)</h4>
+<pre><code class="language-json">{
+  &quot;objective_code&quot;: &quot;CLIMATE_MITIGATION&quot;,
+  &quot;objective_name_sk&quot;: &quot;Zmierňovanie zmeny klímy&quot;,
+  &quot;status&quot;: &quot;CONDITIONAL&quot;,
+  &quot;severity&quot;: &quot;MEDIUM&quot;,
+  &quot;rationale&quot;: &quot;Inštalácia FOVE znižuje emisie; batériové úložisko vyžaduje popis životného cyklu.&quot;,
+  &quot;risk_signals&quot;: [&quot;battery_storage&quot;, &quot;construction_roof&quot;],
+  &quot;mitigations&quot;: [
+    &quot;Popísať recykláciu batérií na konci životnosti podľa zákona o odpadoch&quot;,
+    &quot;Uviesť predpokladanú úsporu t CO2e/rok&quot;
+  ],
+  &quot;suggested_self_assessment_text&quot;: &quot;...&quot;,
+  &quot;citations&quot;: [{&quot;chunk_id&quot;: &quot;uuid&quot;, &quot;document&quot;: &quot;DNSH usmernenie RO&quot;, &quot;page&quot;: 7}]
+}
+</code></pre>
+<p><strong>Agregácia:</strong> <code>FAIL</code> &gt; <code>CONDITIONAL</code> &gt; <code>PASS</code>. <code>dnsh_passed = true</code> len ak žiadny cieľ nie je <code>FAIL</code> a všetky <code>CONDITIONAL</code> majú akceptované mitigation texty v žiadosti.</p>
+<h4 id="353-ciel-1-zmiernovanie-zmeny-klimy">3.5.3 Cieľ 1 — Zmierňovanie zmeny klímy</h4>
+<table>
+<thead>
+<tr>
+<th>Aspekt</th>
+<th>Obsah</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Čo kontroluje</strong></td>
+<td>Zvyšuje projekt významne emisie GHG? Je energetická účinnosť / OZE zdôvodnená?</td>
+</tr>
+<tr>
+<td><strong>Signály</strong></td>
+<td>spaľovanie fosílnych palív, rozšírenie kapacity bez efektivity, absencia merania spotreby</td>
+</tr>
+<tr>
+<td><strong>Typické riziká SK MSP</strong></td>
+<td>výmena strojov bez energetického auditu; diesel backup; výstavba bez energetického štandardu</td>
+</tr>
+<tr>
+<td><strong>Výstup</strong></td>
+<td>PASS / CONDITIONAL (doplniť CO2e) / FAIL (významné zvýšenie emisií bez mitigation)</td>
+</tr>
+<tr>
+<td><strong>DB</strong></td>
+<td><code>dnsh_findings.objective_code = 'CLIMATE_MITIGATION'</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="354-ciel-2-adaptacia-na-zmenu-klimy">3.5.4 Cieľ 2 — Adaptácia na zmenu klímy</h4>
+<table>
+<thead>
+<tr>
+<th>Aspekt</th>
+<th>Obsah</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Čo kontroluje</strong></td>
+<td>Je lokalita / infraštruktúra vystavená klimatickým rizikám (povodne, sucho, horúčavy)?</td>
+</tr>
+<tr>
+<td><strong>Signály</strong></td>
+<td>výstavba v rizikovej zóne, IT serverovňa bez chladenia/resilience, poľnohospodárske investície</td>
+</tr>
+<tr>
+<td><strong>Typické riziká SK MSP</strong></td>
+<td>hala v záplavovom území bez opatrení; FOVE bez kotvenia na extrémny vietor</td>
+</tr>
+<tr>
+<td><strong>Výstup</strong></td>
+<td>PASS / CONDITIONAL (adaptation opatrenia) / FAIL</td>
+</tr>
+<tr>
+<td><strong>DB</strong></td>
+<td><code>CLIMATE_ADAPTATION</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="355-ciel-3-ochrana-vodnych-zdrojov">3.5.5 Cieľ 3 — Ochrana vodných zdrojov</h4>
+<table>
+<thead>
+<tr>
+<th>Aspekt</th>
+<th>Obsah</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Čo kontroluje</strong></td>
+<td>Ovplyvňuje projekt kvalitu / množstvo povrchových a podzemných vôd?</td>
+</tr>
+<tr>
+<td><strong>Signály</strong></td>
+<td>priemyselné odpadové vody, chemické procesy, výstavba pri vodných tokoch</td>
+</tr>
+<tr>
+<td><strong>Typické riziká SK MSP</strong></td>
+<td>povrchové úpravy, chladiace okruhy, skladovanie chemikálií</td>
+</tr>
+<tr>
+<td><strong>Výstup</strong></td>
+<td>PASS / CONDITIONAL (ČOV, monitoring) / FAIL</td>
+</tr>
+<tr>
+<td><strong>DB</strong></td>
+<td><code>WATER</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="356-ciel-4-prechod-na-obehove-hospodarstvo">3.5.6 Cieľ 4 — Prechod na obehové hospodárstvo</h4>
+<table>
+<thead>
+<tr>
+<th>Aspekt</th>
+<th>Obsah</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Čo kontroluje</strong></td>
+<td>Generuje projekt významný odpad? Je zabezpečená recyklácia / predĺženie životnosti?</td>
+</tr>
+<tr>
+<td><strong>Signály</strong></td>
+<td>jednorazové komponenty, batérie, elektronický odpad, demolácia</td>
+</tr>
+<tr>
+<td><strong>Typické riziká SK MSP</strong></td>
+<td>CNC / robotika bez plánu EoL; výmena IT bez WEEE postupu</td>
+</tr>
+<tr>
+<td><strong>Výstup</strong></td>
+<td>PASS / CONDITIONAL (waste hierarchy) / FAIL</td>
+</tr>
+<tr>
+<td><strong>DB</strong></td>
+<td><code>CIRCULAR</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="357-ciel-5-prevencia-a-kontrola-znecistovania">3.5.7 Cieľ 5 — Prevencia a kontrola znečisťovania</h4>
+<table>
+<thead>
+<tr>
+<th>Aspekt</th>
+<th>Obsah</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Čo kontroluje</strong></td>
+<td>Emisie do ovzdušia, hluk, nebezpečné látky, kontaminácia pôdy</td>
+</tr>
+<tr>
+<td><strong>Signály</strong></td>
+<td>lakovanie, zváranie, chemikálie REACH, stavebný prach</td>
+</tr>
+<tr>
+<td><strong>Typické riziká SK MSP</strong></td>
+<td>výrobné linky bez odsávania; skladovanie farieb</td>
+</tr>
+<tr>
+<td><strong>Výstup</strong></td>
+<td>PASS / CONDITIONAL (BAT / povolenia) / FAIL</td>
+</tr>
+<tr>
+<td><strong>DB</strong></td>
+<td><code>POLLUTION</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="358-ciel-6-ochrana-biodiverzity-a-ekosystemov">3.5.8 Cieľ 6 — Ochrana biodiverzity a ekosystémov</h4>
+<table>
+<thead>
+<tr>
+<th>Aspekt</th>
+<th>Obsah</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Čo kontroluje</strong></td>
+<td>Zásah do chránených území, biotopov, odlesnenie, svetelný smog</td>
+</tr>
+<tr>
+<td><strong>Signály</strong></td>
+<td>greenfield výstavba, blízkosť NATURA 2000, veľké vonkajšie osvetlenie</td>
+</tr>
+<tr>
+<td><strong>Typické riziká SK MSP</strong></td>
+<td>nová hala na ornej pôde; FOVE na pozemku s biotopom</td>
+</tr>
+<tr>
+<td><strong>Výstup</strong></td>
+<td>PASS / CONDITIONAL (EIA / stanovisko) / FAIL</td>
+</tr>
+<tr>
+<td><strong>DB</strong></td>
+<td><code>BIODIVERSITY</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="359-export-samohodnotenia">3.5.9 Export samohodnotenia</h4>
+<ul>
+<li>Generuje PDF + štruktúrovaný JSON do S3 (<code>report_blob_url</code>).</li>
+<li>Každý cieľ: otázka → odpoveď žiadateľa (AI draft) → odôvodnenie → mitigation.</li>
+<li>UI CTA <strong>Spustiť DNSH Audit</strong> (dashboard / workspace) volá Agent 2 a zobrazí semafor 6 cieľov.</li>
+</ul>
+<hr>
+<h3 id="36-prediktivny-hodnotiaci-skoring">3.6 Prediktívny Hodnotiaci Skóring</h3>
+<p>Simulácia nezávislého hodnotiteľa pred podaním.</p>
+<h4 id="361-komponenty-skore">3.6.1 Komponenty skóre</h4>
+<table>
+<thead>
+<tr>
+<th>Komponent</th>
+<th>Váha (default)</th>
+<th>Zdroj</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Formálna oprávnenosť (Rule Engine)</td>
+<td>25 %</td>
+<td>deterministické</td>
+</tr>
+<tr>
+<td>Súlad s hodnotiacimi kritériami výzvy</td>
+<td>25 %</td>
+<td>RAG + scorer</td>
+</tr>
+<tr>
+<td>Kvalita intervencie (cieľ–KPI väzby)</td>
+<td>15 %</td>
+<td>Agent 3 metadata</td>
+</tr>
+<tr>
+<td>DNSH status</td>
+<td>15 %</td>
+<td>Agent 2 (FAIL = strop skóre)</td>
+</tr>
+<tr>
+<td>Konzistencia rozpočtu a KPI</td>
+<td>10 %</td>
+<td>Agent 4</td>
+</tr>
+<tr>
+<td>Jazyková konkrétnosť (anti-vagueness)</td>
+<td>10 %</td>
+<td>NLP red-flag detektor</td>
+</tr>
+</tbody>
+</table>
+<p>Ak DNSH = <code>FAIL</code>, celkové skóre je capnuté na max. 49 (nie je „pripravené na podanie“).</p>
+<h4 id="362-red-flag-detekcia">3.6.2 Red-flag detekcia</h4>
+<ul>
+<li>Vágne formulácie bez čísel / baseline.</li>
+<li>Rozpočtové položky bez väzby na aktivitu.</li>
+<li>KPI mimo zoznamu výzvy alebo nereálne targety.</li>
+<li>Nesúlad termínov harmonogramu s dĺžkou oprávneného obdobia.</li>
+<li>Chýbajúca udržateľnosť po skončení projektu.</li>
+</ul>
+<h4 id="363-ux-semafor">3.6.3 UX semafor</h4>
+<table>
+<thead>
+<tr>
+<th>Skóre</th>
+<th>Farba</th>
+<th>Význam</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>85–100</td>
+<td>Zelená</td>
+<td>Vysoká pripravenosť</td>
+</tr>
+<tr>
+<td>70–84</td>
+<td>Oranžová</td>
+<td>Doplniť slabé sekcie</td>
+</tr>
+<tr>
+<td>50–69</td>
+<td>Amber</td>
+<td>Významné riziká</td>
+</tr>
+<tr>
+<td>0–49</td>
+<td>Červená</td>
+<td>Blokujúce nedostatky / DNSH FAIL</td>
+</tr>
+</tbody>
+</table>
+<p>Zobrazené ako <strong>AI Compliance Skóre</strong> na dashboarde rozpracovaného projektu.</p>
+<hr>
+<h3 id="37-observability-eval-a-audit-ai-rozhodnuti">3.7 Observability, Eval a Audit AI Rozhodnutí</h3>
+<ul>
+<li>Každé volanie LLM → riadok v <code>ai_generations</code> (model, prompt_hash, latency, token usage, citations, grounding_score, tenant_id).</li>
+<li>DNSH → <code>dnsh_assessments</code> + <code>dnsh_findings</code>.</li>
+<li>Immutable audit log (pozri §6) pre accept/reject draftu a DNSH override.</li>
+<li><strong>ZDR:</strong> Enterprise API s Zero Data Retention; žiadne trénovanie na tenant dátach (§6.1).</li>
+<li>CI eval job: golden set §3.3.5 pred merge prompt/model change.</li>
+<li>Dashboard pre AI Engineer: faithfulness trend, refusal rate, p95 latency, cost per application.</li>
+</ul>
+<hr>
+<h2 id="4-uxui-dizajn-a-pwa-specifikacia">4. UX/UI Dizajn a PWA Špecifikácia</h2>
+<p>Platforma je postavená na filozofii <strong>"Mobile-First, Desktop-Productive"</strong> — bleskové mobilné notifikácie pre konateľov a robustný pracovný workspace pre dotačných manažérov na desktope.</p>
+<pre><code class="language-text">+-----------------------------------------------------------------------------------+
+|  [Logo] GrantFlow.sk       [Hľadať výzvu / IČO...]      🔔 (3)  [Profil: TechMSP] |
++-----------------------------------------------------------------------------------+
+|  Dashboard  |  Moje Výzvy  |  AI Žiadosti  |  Finančný Profil  |  Konzultanti     |
++-----------------------------------------------------------------------------------+
+|  🏢 Profil spoločnosti: InnoTech Slovakia s.r.o. (IČO: 52 123 456)                |
+|  Status: Malý podnik (24 zamestnancov) | Región: Banskobystrický kraj | NACE: 62.01|
+|  +-----------------------------------+  +--------------------------------------+  |
+|  |  🎯 3 NOVÉ TOP ZHODY PRE VÁS      |  |  ⏳ BLÍŽIACE SA UZÁVIERKY            |  |
+|  |  - PSK-SIEA-Inovácie: Zhoda 94%   |  |  - Digitálny Reštart: za 14 dní      |  |
+|  |  - Horizon STEP Scale: Zhoda 88%  |  |  - EIC Accelerator: za 32 dní        |  |
+|  +-----------------------------------+  +--------------------------------------+  |
+|  +-----------------------------------------------------------------------------+  |
+|  | ✍️ ROZPRACOVANÝ PROJEKT: Zavedenie AI do výroby (Výzva: PSK-SIEA-004)        |  |
+|  | Progres: [==========----------] 52% | AI Compliance Skóre: 88/100 (§3.6)    |  |
+|  | [Pokračovať v písaní s AI]  [Spustiť DNSH Audit §3.5]  [Export ITMS2021+]   |  |
+|  +-----------------------------------------------------------------------------+  |
++-----------------------------------------------------------------------------------+
+</code></pre>
+<h3 id="41-pwa-konfiguracia-a-web-app-manifest">4.1 PWA Konfigurácia a Web App Manifest</h3>
+<ul>
+<li><strong>Názov:</strong> GrantFlow Slovensko – EU Dotácie a Granty pre MSP</li>
+<li><strong>Display Mode:</strong> <code>standalone</code></li>
+<li><strong>Theme Color:</strong> <code>#0F172A</code> (Slate Dark) / Accent: <code>#2563EB</code> (Royal Blue)</li>
+<li><strong>Command Palette:</strong> <code>Cmd/Ctrl + K</code> — vyhľadávanie výziev podľa kľúčových slov, kódov alebo NACE.</li>
+<li><strong>Offline režim:</strong></li>
+<li>Kompletný zoznam uložených a sledovaných výziev bez internetu.</li>
+<li>Editácia textov žiadostí offline; sync cez Service Worker po obnovení spojenia.</li>
+<li>AI generovanie vyžaduje online (indikátor + queue draft request do Background Sync).</li>
+</ul>
+<h3 id="42-vazba-ui-na-ai-pipeline">4.2 Väzba UI na AI pipeline</h3>
+<table>
+<thead>
+<tr>
+<th>UI akcia</th>
+<th>Backend</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pokračovať v písaní s AI</td>
+<td>Agent 3 + §3.4</td>
+</tr>
+<tr>
+<td>Spustiť DNSH Audit</td>
+<td>Agent 2 + §3.5</td>
+</tr>
+<tr>
+<td>Zobraziť Compliance Skóre</td>
+<td>§3.6 merge</td>
+</tr>
+<tr>
+<td>Preformulovať / Skrátiť / Doplniť KPI</td>
+<td>rewrite tools Agent 3</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="5-datovy-model-databazova-schema">5. Dátový Model (Databázová Schéma)</h2>
+<p>Navrhnutá schéma pre relačnú databázu PostgreSQL s rozšírením pre vektorové vyhľadávanie.</p>
+<pre><code class="language-sql">-- 1. Tabuľka organizácií (podnikov žiadateľov)
+CREATE TABLE organizations (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    ico VARCHAR(8) UNIQUE NOT NULL,
+    dic VARCHAR(10),
+    ic_dph VARCHAR(12),
+    legal_name VARCHAR(255) NOT NULL,
+    sk_nace_code VARCHAR(10) NOT NULL,
+    sk_nace_text TEXT,
+    region_nuts3 VARCHAR(10) NOT NULL,
+    district VARCHAR(100) NOT NULL,
+    street VARCHAR(255),
+    postal_code VARCHAR(10),
+    established_date DATE NOT NULL,
+    company_size_category VARCHAR(20) NOT NULL,
+    de_minimis_used_eur NUMERIC(12, 2) DEFAULT 0.00,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 2. Finančné ukazovatele z RÚZ
+CREATE TABLE organization_financial_snapshots (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    organization_id UUID REFERENCES organizations(id) ON DELETE CASCADE,
+    year INT NOT NULL,
+    revenue_eur NUMERIC(14, 2) NOT NULL,
+    net_profit_eur NUMERIC(14, 2) NOT NULL,
+    ebitda_eur NUMERIC(14, 2),
+    assets_eur NUMERIC(14, 2) NOT NULL,
+    equity_eur NUMERIC(14, 2) NOT NULL,
+    employee_count INT NOT NULL,
+    is_enterprise_in_difficulty BOOLEAN DEFAULT FALSE,
+    data_source VARCHAR(50) DEFAULT 'RUZ_SR',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    UNIQUE(organization_id, year)
+);
+
+-- 3. Dotačné výzvy
+CREATE TABLE grant_calls (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    call_code VARCHAR(100) UNIQUE NOT NULL,
+    title TEXT NOT NULL,
+    program_name VARCHAR(100) NOT NULL,
+    managing_authority VARCHAR(150) NOT NULL,
+    allocation_total_eur NUMERIC(15, 2) NOT NULL,
+    allocation_available_eur NUMERIC(15, 2),
+    min_grant_eur NUMERIC(12, 2),
+    max_grant_eur NUMERIC(12, 2),
+    co_financing_rate_percentage NUMERIC(5, 2) NOT NULL,
+    state_aid_scheme VARCHAR(50),
+    call_status VARCHAR(20) NOT NULL,
+    opened_date TIMESTAMP WITH TIME ZONE,
+    deadline_date TIMESTAMP WITH TIME ZONE,
+    source_url TEXT NOT NULL,
+    itms_id VARCHAR(50),
+    is_step_tagged BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 4. Vektorové chunkované dokumenty
+CREATE TABLE grant_call_chunks (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    grant_call_id UUID REFERENCES grant_calls(id) ON DELETE CASCADE,
+    document_title VARCHAR(255) NOT NULL,
+    section_name VARCHAR(255),
+    content TEXT NOT NULL,
+    embedding VECTOR(3072),
+    metadata JSONB,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX idx_grant_chunks_embedding ON grant_call_chunks
+USING hnsw (embedding vector_cosine_ops);
+
+-- 5. Projektové žiadosti
+CREATE TABLE grant_applications (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    organization_id UUID REFERENCES organizations(id) ON DELETE CASCADE,
+    grant_call_id UUID REFERENCES grant_calls(id) ON DELETE RESTRICT,
+    project_title VARCHAR(255) NOT NULL,
+    target_budget_eur NUMERIC(12, 2),
+    requested_grant_eur NUMERIC(12, 2),
+    completion_percentage INT DEFAULT 0,
+    status VARCHAR(30) DEFAULT 'IN_PROGRESS',
+    dnsh_passed BOOLEAN DEFAULT FALSE,
+    eligibility_score INT DEFAULT 0,
+    predictive_score INT DEFAULT 0,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 6. Textové sekcie žiadosti
+CREATE TABLE application_sections (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    application_id UUID REFERENCES grant_applications(id) ON DELETE CASCADE,
+    section_key VARCHAR(100) NOT NULL,
+    section_title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    character_limit INT,
+    compliance_score INT,
+    last_edited_by VARCHAR(50) DEFAULT 'USER',
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 7. Extrahované pravidlá oprávnenosti (v2)
+CREATE TABLE eligibility_rule_extractions (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    grant_call_id UUID REFERENCES grant_calls(id) ON DELETE CASCADE,
+    schema_version VARCHAR(20) NOT NULL DEFAULT '1.0',
+    rules_json JSONB NOT NULL,
+    source_document_title VARCHAR(255),
+    extraction_confidence NUMERIC(4, 3),
+    validated BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    UNIQUE(grant_call_id, schema_version)
+);
+
+-- 8. AI generácie — audit trail (v2)
+CREATE TABLE ai_generations (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    organization_id UUID REFERENCES organizations(id) ON DELETE CASCADE,
+    application_id UUID REFERENCES grant_applications(id) ON DELETE SET NULL,
+    section_key VARCHAR(100),
+    agent_name VARCHAR(50) NOT NULL,
+    model_name VARCHAR(100) NOT NULL,
+    prompt_hash VARCHAR(64) NOT NULL,
+    grounding_score NUMERIC(4, 3),
+    citations JSONB NOT NULL DEFAULT '[]',
+    input_tokens INT,
+    output_tokens INT,
+    latency_ms INT,
+    status VARCHAR(30) NOT NULL,
+    refusal_reason TEXT,
+    created_by UUID,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX idx_ai_generations_org ON ai_generations(organization_id, created_at DESC);
+
+-- 9. DNSH assessments (v2)
+CREATE TABLE dnsh_assessments (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    application_id UUID REFERENCES grant_applications(id) ON DELETE CASCADE,
+    overall_status VARCHAR(20) NOT NULL,
+    report_blob_url TEXT,
+    model_name VARCHAR(100),
+    grounding_score NUMERIC(4, 3),
+    created_by UUID,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE dnsh_findings (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    assessment_id UUID REFERENCES dnsh_assessments(id) ON DELETE CASCADE,
+    objective_code VARCHAR(40) NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    severity VARCHAR(20),
+    rationale TEXT NOT NULL,
+    mitigations JSONB NOT NULL DEFAULT '[]',
+    suggested_text TEXT,
+    citations JSONB NOT NULL DEFAULT '[]',
+    UNIQUE(assessment_id, objective_code)
+);
+</code></pre>
+<p><strong>RLS poznámka:</strong> Všetky tenant tabuľky (<code>ai_generations</code>, <code>dnsh_*</code>, <code>grant_applications</code>, …) izolovať cez <code>organization_id</code> / membership policy (§6.2).</p>
+<hr>
+<h2 id="6-bezpecnost-zabezpecenie-dat-zdr-a-gdpr-compliance">6. Bezpečnosť, Zabezpečenie Dát (ZDR) a GDPR Compliance</h2>
+<p>Vzhľadom na spracovávanie citlivých firemných stratégií a finančných dát podnikov v SR systém garantuje:</p>
+<ol>
+<li>
+<p><strong>Zero Data Retention (ZDR) pri LLM:</strong> Zmluvná garancia s poskytovateľmi modelov (cez OpenAI/Anthropic/AWS Bedrock API Enterprise), že žiadne odoslané dáta (prompty, výkazy, drafty) nie sú ukladané na serveroch AI poskytovateľov ani využívané na ďalšie trénovanie. Doplnené o interný audit trail v <code>ai_generations</code> (§3.7) — uložené u nás v EÚ, nie u LLM providera.</p>
+</li>
+<li>
+<p><strong>Multi-Tenant Izolácia dát:</strong> Prísna separácia dát na úrovni PostgreSQL pomocou Row-Level Security (RLS). Žiadna organizácia nemôže cez vyhľadávanie ani RAG získať prístup ku kontextu iného žiadateľa. Retrieve filtruje vždy podľa tenant scope.</p>
+</li>
+<li>
+<p><strong>Auditný záznam (Immutable Audit Log):</strong> Každá zmena v projektovej žiadosti, export dát, zobrazenie citlivého údaju, prijatie AI draftu alebo DNSH override je auditované s časovou pečiatkou a ID používateľa.</p>
+</li>
+<li>
+<p><strong>Hosting výlučne v EÚ:</strong> Všetky servery, vektorové indexy a databázy sú fyzicky umiestnené v regióne EÚ (Frankfurt / Nemecko).</p>
+</li>
+</ol>
+<hr>
+<h2 id="7-kompletny-produktovy-backlog-epics-user-stories">7. Kompletný Produktový Backlog (Epics &amp; User Stories)</h2>
+<p>Agilný backlog s odhadom v Story Points (SP) a MoSCoW prioritizáciou.</p>
+<hr>
+<h3 id="epic-1-datova-infrastruktura-harvester-dotacnych-vyziev-v-sr-data-etl">EPIC 1: DÁTOVÁ INFRAŠTRUKTÚRA &amp; HARVESTER DOTAČNÝCH VÝZIEV V SR (DATA &amp; ETL)</h3>
+<h4 id="us-11-automatizovany-itms2021-a-sedia-scraper-pipeline">US 1.1: Automatizovaný ITMS2021+ a SEDIA Scraper Pipeline</h4>
+<ul>
+<li><strong>Ako:</strong> Systémový administrátor a dátový analytik</li>
+<li><strong>Chcem:</strong> Aby systém každých 6 hodín automaticky kontroloval a sťahoval nové výzvy a metodické dokumenty z portálov ITMS2021+ a EU SEDIA</li>
+<li><strong>Aby:</strong> Používatelia mali vždy aktuálne znenia výziev vrátane dodatkov a usmernení.</li>
+<li><strong>Akceptačné kritériá:</strong></li>
+<li>Scraper sťahuje PDF a DOCX prílohy, extrahuje text a ukladá ho do S3.</li>
+<li>Zmeny v dokumentoch výzvy vygenerujú diff log a označia zmenené časti.</li>
+<li>Ak je výzva pozastavená alebo uzavretá, status v DB sa aktualizuje do 15 minút.</li>
+<li><strong>Priorita:</strong> <code>MUST HAVE</code> | <strong>Odhad:</strong> 8 SP</li>
+</ul>
+<h4 id="us-12-inteligentny-pdf-extractor-semanticky-parser">US 1.2: Inteligentný PDF Extractor &amp; Sémantický Parser</h4>
+<ul>
+<li><strong>Ako:</strong> AI Engine</li>
+<li><strong>Chcem:</strong> Rozparsovať nestruktúrované PDF dokumenty výziev do štruktúrovaných JSON schém</li>
+<li><strong>Aby:</strong> Deterministický engine vedel okamžite overovať splnenie formálnych kritérií.</li>
+<li><strong>Akceptačné kritériá:</strong></li>
+<li>Presnosť extrakcie kritických atribútov ≥ 98 %.</li>
+<li>Údaje validované voči Zod/Pydantic schema pred zápisom; uložené aj do <code>eligibility_rule_extractions</code>.</li>
+<li><strong>Priorita:</strong> <code>MUST HAVE</code> | <strong>Odhad:</strong> 8 SP</li>
+</ul>
+<h4 id="us-13-vektorizacna-pipeline-s-hybridnym-indexom-pgvector">US 1.3: Vektorizačná Pipeline s Hybridným Indexom (pgvector)</h4>
+<ul>
+<li><strong>Ako:</strong> Backend vývojár</li>
+<li><strong>Chcem:</strong> Automaticky generovať embeddingy z rozdelených častí metodických príručiek a ukladať ich do <code>pgvector</code></li>
+<li><strong>Aby:</strong> RAG asistent vedel v reálnom čase vyhľadať relevantné odseky.</li>
+<li><strong>Akceptačné kritériá:</strong></li>
+<li><code>text-embedding-3-large</code> dimenzia 3072; HNSW; odozva &lt; 120 ms pri 100 000 chunkov.</li>
+<li><strong>Priorita:</strong> <code>MUST HAVE</code> | <strong>Odhad:</strong> 5 SP</li>
+</ul>
+<hr>
+<h3 id="epic-2-onboarding-podniku-ico-integracia-financny-audit">EPIC 2: ONBOARDING PODNIKU, IČO INTEGRÁCIA &amp; FINANČNÝ AUDIT</h3>
+<h4 id="us-21-onboarding-cez-ico-s-integraciou-ruz-a-finstat">US 2.1: Onboarding cez IČO s integráciou RÚZ a FinStat</h4>
+<ul>
+<li><strong>Priorita:</strong> <code>MUST HAVE</code> | <strong>Odhad:</strong> 5 SP</li>
+<li><strong>Akceptačné kritériá:</strong> Predvyplnenie profilu &lt; 3 s; automatický výpočet kategórie podniku podľa EK.</li>
+</ul>
+<h4 id="us-22-automaticky-test-podnik-v-tazkostiach-deggendorf">US 2.2: Automatický Test „Podnik v ťažkostiach“ (Deggendorf)</h4>
+<ul>
+<li><strong>Priorita:</strong> <code>MUST HAVE</code> | <strong>Odhad:</strong> 3 SP</li>
+<li><strong>Akceptačné kritériá:</strong> Semafor Zelená / Oranžová / Červená s vysvetlením.</li>
+</ul>
+<h4 id="us-23-sprava-schemy-statnej-pomoci-de-minimis">US 2.3: Správa Schémy Štátnej Pomoci De Minimis</h4>
+<ul>
+<li><strong>Priorita:</strong> <code>SHOULD HAVE</code> | <strong>Odhad:</strong> 3 SP</li>
+<li><strong>Akceptačné kritériá:</strong> Progress bar limitu 300 000 €; indikácia pri výzve.</li>
+</ul>
+<hr>
+<h3 id="epic-3-semanticke-vyhladavanie-match-engine-notifikacie">EPIC 3: SÉMANTICKÉ VYHĽADÁVANIE, MATCH ENGINE &amp; NOTIFIKÁCIE</h3>
+<h4 id="us-31-algoritmus-match-scoringu-0100">US 3.1: Algoritmus Match Scoringu (0–100 %)</h4>
+<ul>
+<li><strong>Priorita:</strong> <code>MUST HAVE</code> | <strong>Odhad:</strong> 5 SP</li>
+<li><strong>Poznámka:</strong> Implementácia zosúladená s Agent 1 (§3.2).</li>
+</ul>
+<h4 id="us-32-semanticke-fulltextove-a-vektorove-vyhladavanie">US 3.2: Sémantické Fulltextové a Vektorové Vyhľadávanie</h4>
+<ul>
+<li><strong>Priorita:</strong> <code>MUST HAVE</code> | <strong>Odhad:</strong> 5 SP</li>
+<li><strong>Akceptačné kritériá:</strong> Odozva &lt; 300 ms; podpora hovorového popisu zámeru.</li>
+</ul>
+<h4 id="us-33-pwa-web-push-notifikacny-hub">US 3.3: PWA Web Push Notifikačný Hub</h4>
+<ul>
+<li><strong>Priorita:</strong> <code>MUST HAVE</code> | <strong>Odhad:</strong> 5 SP</li>
+</ul>
+<hr>
+<h3 id="epic-4-pwa-engine-offline-experience-native-integration">EPIC 4: PWA ENGINE, OFFLINE EXPERIENCE &amp; NATIVE INTEGRATION</h3>
+<h4 id="us-41-instalovatelnost-pwa-must-have-3-sp">US 4.1: Inštalovateľnosť PWA — <code>MUST HAVE</code> | 3 SP</h4>
+<h4 id="us-42-offline-rezim-should-have-8-sp">US 4.2: Offline režim — <code>SHOULD HAVE</code> | 8 SP</h4>
+<h4 id="us-43-webauthn-passkeys-should-have-5-sp">US 4.3: WebAuthn / Passkeys — <code>SHOULD HAVE</code> | 5 SP</h4>
+<hr>
+<h3 id="epic-5-ai-grant-copilot-dnsh-audit-generator-projektov">EPIC 5: AI GRANT COPILOT, DNSH AUDIT &amp; GENERÁTOR PROJEKTOV</h3>
+<h4 id="us-51-inteligentny-ai-spoluautor-projektovej-ziadosti">US 5.1: Inteligentný AI Spoluautor Projektovej Žiadosti</h4>
+<ul>
+<li><strong>Ako:</strong> Projektový manažér MSP</li>
+<li><strong>Chcem:</strong> Aby mi AI navrhla štruktúrovaný text pre konkrétnu kapitolu žiadosti na základe briefu a metodiky výzvy</li>
+<li><strong>Aby:</strong> Som ušetril ≥ 70 % času pri tvorbe prvej verzie a dodržal terminológiu hodnotiteľov.</li>
+<li><strong>Akceptačné kritériá:</strong></li>
+<li>Generovanie striktne z RAG kontextu danej výzvy (§3.1, §3.4).</li>
+<li>Rešpektovanie limitu znakov ITMS; rewrite akcie Formalize / Shorten / Add KPIs.</li>
+<li>Každý odsek o pravidlách má citácie <code>chunk_id</code>; pri <code>grounding_score &lt; 0.72</code> refusal/clarify (§3.3).</li>
+<li>Intervenčná logika: cieľ → aktivity → outputs → results → KPIs.</li>
+<li>Záznam v <code>ai_generations</code>.</li>
+<li><strong>Priorita:</strong> <code>MUST HAVE</code> | <strong>Odhad:</strong> 21 SP <em>(v2: zvýšené z 13 SP o grounding + intervention enforcement)</em></li>
+</ul>
+<h4 id="us-52-automatizovany-dnsh-audit-environmentalna-taxonomia">US 5.2: Automatizovaný DNSH Audit (Environmentálna Taxonómia)</h4>
+<ul>
+<li><strong>Ako:</strong> Žiadateľ o dotáciu</li>
+<li><strong>Chcem:</strong> Aby AI skontrolovala projektový zámer voči 6 cieľom DNSH a vygenerovala povinné zdôvodnenie</li>
+<li><strong>Aby:</strong> Projekt nebol vyradený v 1. kole pre formálny nesúlad s environmentálnou legislatívou EU.</li>
+<li><strong>Akceptačné kritériá:</strong></li>
+<li>Vyhodnotenie všetkých 6 cieľov podľa §3.5 s statusom PASS / CONDITIONAL / FAIL.</li>
+<li>Každý CONDITIONAL/FAIL má severity, mitigation a citáciu.</li>
+<li>Export štruktúrovaného samohodnotenia (PDF + JSON) ako príloha; update <code>dnsh_passed</code>.</li>
+<li>Persistencia do <code>dnsh_assessments</code> / <code>dnsh_findings</code>.</li>
+<li><strong>Priorita:</strong> <code>MUST HAVE</code> | <strong>Odhad:</strong> 13 SP <em>(v2: zvýšené z 8 SP)</em></li>
+</ul>
+<h4 id="us-53-validator-rozpoctu-a-meratelnych-ukazovatelov">US 5.3: Validátor Rozpočtu a Merateľných Ukazovateľov</h4>
+<ul>
+<li><strong>Priorita:</strong> <code>SHOULD HAVE</code> | <strong>Odhad:</strong> 5 SP</li>
+<li><strong>Akceptačné kritériá:</strong> Real-time stropy %; neoprávnené položky; väzba na Agent 4 a §3.6.</li>
+</ul>
+<h4 id="us-54-grounding-eval-harness-nove-v2">US 5.4: Grounding &amp; Eval Harness <em>(nové v2)</em></h4>
+<ul>
+<li><strong>Ako:</strong> AI Engineer</li>
+<li><strong>Chcem:</strong> CI eval na golden sete (faithfulness, citation precision, refusal correctness) a dashboard metrík</li>
+<li><strong>Aby:</strong> Regresie promptov/modelov neprepustili halucinácie do produkcie.</li>
+<li><strong>Akceptačné kritériá:</strong></li>
+<li>≥ 200 golden questions; gate pred deployom (§3.3.5, §3.7).</li>
+<li>Metriky: Faithfulness ≥ 0.90, Citation precision ≥ 0.85, Refusal correctness ≥ 0.90.</li>
+<li><strong>Priorita:</strong> <code>MUST HAVE</code> | <strong>Odhad:</strong> 8 SP</li>
+</ul>
+<h4 id="us-55-prediktivny-compliance-skoring-nove-v2">US 5.5: Prediktívny Compliance Skóring <em>(nové v2)</em></h4>
+<ul>
+<li><strong>Ako:</strong> Projektový manažér</li>
+<li><strong>Chcem:</strong> Vidieť AI Compliance Skóre 0–100 s red-flagmi pred exportom</li>
+<li><strong>Aby:</strong> Som odstránil vágne formulácie a nesúlady pred podaním.</li>
+<li><strong>Akceptačné kritériá:</strong> Váhy podľa §3.6; DNSH FAIL cap ≤ 49; semafor v UI.</li>
+<li><strong>Priorita:</strong> <code>MUST HAVE</code> | <strong>Odhad:</strong> 5 SP</li>
+</ul>
+<hr>
+<h3 id="epic-6-b2b-workspace-timova-kolaboracia-export-pre-itms2021">EPIC 6: B2B WORKSPACE, TÍMOVÁ KOLABORÁCIA &amp; EXPORT PRE ITMS2021+</h3>
+<h4 id="us-61-rolovy-pristup-a-kolaboracia-should-have-8-sp">US 6.1: Rolový Prístup a Kolaborácia — <code>SHOULD HAVE</code> | 8 SP</h4>
+<h4 id="us-62-export-do-itms2021-a-pdf-must-have-5-sp">US 6.2: Export do ITMS2021+ a PDF — <code>MUST HAVE</code> | 5 SP</h4>
+<hr>
+<h3 id="epic-7-monetizacia-predplatne-b2b-billing">EPIC 7: MONETIZÁCIA, PREDPLATNÉ &amp; B2B BILLING</h3>
+<h4 id="us-71-stripe-billing-slovenska-fakturacia-must-have-5-sp">US 7.1: Stripe Billing + Slovenská Fakturácia — <code>MUST HAVE</code> | 5 SP</h4>
+<hr>
+<h2 id="8-9-mesacna-implementacna-roadmapa">8. 9-Mesačná Implementačná Roadmapa</h2>
+<p>Vývoj je rozdelený do 4 fáz s cieľom rýchleho vstupu na trh (Fast Time-to-Market) s funkčným MVP v 3. mesiaci.</p>
+<pre><code class="language-text">Mesiace:  [M1]  [M2]  [M3]  [M4]  [M5]  [M6]  [M7]  [M8]  [M9]
+-----------------------------------------------------------------------------------
+FÁZA 1: MVP (Smart Data &amp; Search)
+- ETL Pipeline (ITMS2021+, SEDIA)    [====]
+- IČO Resolver (RÚZ, FinStat)              [====]
+- Hybrid Search + pgvector                       [====]
+- PWA Základ + Core UI                           [========]
+- Verejné MVP Spustenie (Beta)                            ▲ (Koniec M3)
+
+FÁZA 2: AI COPILOT &amp; PWA ENGAGE  ← mapovanie na §3.2–3.6
+- LangGraph RAG + Sub-agenti (§3.2)                    [====]
+- Grounding Gate &amp; Eval Harness (§3.3, §3.7)                 [====]
+- AI Draft + Intervenčná metodika (§3.4)                     [====]
+- DNSH Auditor 6 cieľov (§3.5)                                     [====]
+- Predictive Scoring (§3.6) + Web Push &amp; Offline                     [====]
+- Komplexný Test Oprávnenosti MSP                                    [====]
+
+FÁZA 3: B2B WORKSPACE &amp; MONETIZÁCIA
+- Kolaboratívny Workspace &amp; Role                                         [====]
+- Stripe Billing + Slovenská Fakturácia                                  [====]
+- ITMS2021+ Exportér &amp; Validátor                                               [====]
+- Oficiálny Komerčný Launch v SR                                               ▲ (Koniec M7)
+
+FÁZA 4: SCALE &amp; V4 EXPANZIA
+- Integrácia ČR (IS KP21+, ARES)                                                     [====]
+- White-Label Portál pre Dotačné Kancelárie                                          [====]
+</code></pre>
+<p><strong>Fáza 2 — Definition of Done (DoD):</strong> US 5.1, 5.2, 5.4, 5.5 splnené; golden eval gate zelený; DNSH report exportovateľný; Compliance Skóre na dashboarde.</p>
+<hr>
+<h2 id="9-go-to-market-gtm-strategia-a-klucove-metriky-pre-slovensko">9. Go-To-Market (GTM) Stratégia a Kľúčové Metriky pre Slovensko</h2>
+<h3 id="91-gtm-taktika-a-akvizicne-kanaly">9.1 GTM Taktika a Akvizičné Kanály</h3>
+<ol>
+<li>
+<p><strong>Partnerstvá s Regionálnymi Poradenskými a Účtovnými Centrami:</strong> Licencia „GrantFlow Pro pre Poradcov“ (B2B2B). Poradca získa nástroj na zrýchlenie práce o ~60 %; platforma prístup ku klientskemu portfóliu.</p>
+</li>
+<li>
+<p><strong>Freemium s IČO Dotačným Auditom (Lead Magnet):</strong> Bezplatný jednostranový „Dotačný Audit podniku pre rok 2026“. Spoplatnené podrobné analýzy a AI písanie.</p>
+</li>
+<li>
+<p><strong>Spolupráca s Klastrami a Združeniami:</strong> SAPIE, SOPK, Republiková únia zamestnávateľov, IT Valley Košice.</p>
+</li>
+</ol>
+<h3 id="92-cielove-metriky-uspechu-kpis-do-12-mesiacov-od-launchu">9.2 Cieľové Metriky Úspechu (KPIs do 12 mesiacov od launchu)</h3>
+<table>
+<thead>
+<tr>
+<th>KPI</th>
+<th>Cieľ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Overené registrované SK firmy</td>
+<td>3 500+ MSP</td>
+</tr>
+<tr>
+<td>MAU</td>
+<td>1 800+ firiem</td>
+</tr>
+<tr>
+<td>Konverzia Free → Paid</td>
+<td>6,5 %</td>
+</tr>
+<tr>
+<td>ARR na SK trhu</td>
+<td>380 000 € – 550 000 €</td>
+</tr>
+<tr>
+<td>Úspešnosť projektov s AI Copilotom (1. kolo)</td>
+<td>&gt; 75 %</td>
+</tr>
+<tr>
+<td>Faithfulness (produkčný rolling)</td>
+<td>≥ 0.90</td>
+</tr>
+<tr>
+<td>DNSH report completion rate pred submit</td>
+<td>≥ 95 % platených žiadostí</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="10-changelog-v2">10. Changelog v2</h2>
+<h3 id="pridane-rozsirene-oproti-v1-blueprintu">Pridané / rozšírené oproti v1 blueprintu</h3>
+<table>
+<thead>
+<tr>
+<th>Oblasť</th>
+<th>Zmena</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>§1.2</td>
+<td>4 piliere AI Copilota s merateľnými benefitmi a krížovými odkazmi na §3.x</td>
+</tr>
+<tr>
+<td>§3</td>
+<td>Mermaid RAG + LangGraph flow; zachovaná hybrid pipeline</td>
+</tr>
+<tr>
+<td>§3.2</td>
+<td>Detail sub-agentov: vstupy, tooly, JSON schémy, handoff, state diagram</td>
+</tr>
+<tr>
+<td>§3.3</td>
+<td><strong>Nové:</strong> Grounding policy, citácie, refusal, HITL, eval metriky</td>
+</tr>
+<tr>
+<td>§3.4</td>
+<td><strong>Nové:</strong> Intervenčná logika EŠIF, ITMS field map, tone guidelines, workspace workflow</td>
+</tr>
+<tr>
+<td>§3.5</td>
+<td><strong>Nové:</strong> Rigorózny DNSH audit — 6 cieľov, risk signály, mitigation, agregácia statusov, export</td>
+</tr>
+<tr>
+<td>§3.6</td>
+<td><strong>Nové:</strong> Prediktívny skóring, váhy, red-flagy, UX semafor</td>
+</tr>
+<tr>
+<td>§3.7</td>
+<td><strong>Nové:</strong> Observability, ZDR väzba, CI eval</td>
+</tr>
+<tr>
+<td>§4</td>
+<td>CTA viazané na §3.5 / §3.6</td>
+</tr>
+<tr>
+<td>§5</td>
+<td>Tabuľky <code>eligibility_rule_extractions</code>, <code>ai_generations</code>, <code>dnsh_assessments</code>, <code>dnsh_findings</code>; pole <code>predictive_score</code></td>
+</tr>
+<tr>
+<td>§6</td>
+<td>Explicitná väzba ZDR ↔ interný AI audit trail</td>
+</tr>
+<tr>
+<td>§7 Epic 5</td>
+<td>US 5.1→21 SP, US 5.2→13 SP; <strong>nové</strong> US 5.4 Grounding &amp; Eval, US 5.5 Predictive Scoring</td>
+</tr>
+<tr>
+<td>§8</td>
+<td>Fáza 2 mapovaná na §3.2–3.6 + DoD</td>
+</tr>
+<tr>
+<td>§9.2</td>
+<td>Doplnené KPI faithfulness a DNSH completion</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mimo-rozsahu-v2-dokumentu">Mimo rozsahu v2 dokumentu</h3>
+<ul>
+<li>Implementácia produkčného kódu (LangGraph / FastAPI / NestJS)</li>
+<li>Live napojenie na ITMS / RÚZ API</li>
+<li>UI prototypy mimo textového wireframe</li>
+</ul>
+<hr>
+<p><em>Koniec dokumentu — GrantFlow.sk Blueprint v2 (AI/DNSH Deep Spec), August 2026.</em></p></body></html>

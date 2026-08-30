@@ -1,0 +1,16 @@
+{
+  "folders": [
+    { "path": ".", "name": "GrantFlow" },
+    { "path": "web-app", "name": "web-app" },
+    { "path": "grantflow-ai", "name": "grantflow-ai" }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/node_modules": true,
+      "**/.venv": true,
+      "**/.next": true,
+      "**/__pycache__": true
+    },
+    "python.defaultInterpreterPath": "${workspaceFolder:grantflow-ai}/.venv/Scripts/python.exe"
+  }
+}

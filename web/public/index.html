@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="sk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GrantFlow Slovensko — PWA ikony (náhľad)</title>
+    <meta name="theme-color" content="#0F172A" />
+    <meta name="application-name" content="GrantFlow" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="GrantFlow" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <style>
+      :root {
+        --bg: #0f172a;
+        --accent: #2563eb;
+        --fg: #e2e8f0;
+      }
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 2rem;
+      }
+      h1 { font-size: 1.25rem; margin: 0 0 0.5rem; }
+      p { opacity: 0.8; margin: 0 0 1.5rem; }
+      .grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+      }
+      figure {
+        margin: 0;
+        text-align: center;
+        background: #1e293b;
+        border-radius: 12px;
+        padding: 1rem;
+      }
+      img { display: block; margin: 0 auto 0.5rem; border-radius: 8px; }
+      figcaption { font-size: 0.75rem; opacity: 0.7; }
+      code { color: #93c5fd; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>GrantFlow PWA ikony</h1>
+      <p>Náhľad assetov z <code>public/icons</code>. Pre produkciu napoj na Next.js 15 App Router.</p>
+      <div class="grid">
+        <figure>
+          <img src="/icons/icon-192x192.png" width="96" height="96" alt="192" />
+          <figcaption>192×192 any</figcaption>
+        </figure>
+        <figure>
+          <img src="/icons/icon-512x512.png" width="96" height="96" alt="512" />
+          <figcaption>512×512 any</figcaption>
+        </figure>
+        <figure>
+          <img src="/icons/icon-512x512-maskable.png" width="96" height="96" alt="maskable" />
+          <figcaption>512 maskable</figcaption>
+        </figure>
+        <figure>
+          <img src="/icons/apple-touch-icon.png" width="96" height="96" alt="apple" />
+          <figcaption>Apple touch</figcaption>
+        </figure>
+      </div>
+    </main>
+  </body>
+</html>
