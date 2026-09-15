@@ -44,7 +44,7 @@ export default async function AboutPage() {
           </p>
         </header>
 
-        <section className="animate-fade-up-delay space-y-3 rounded-2xl border border-line bg-panel/80 p-5 md:p-6">
+        <section className="animate-fade-up-delay space-y-3 gf-card p-5 md:p-6">
           <h2 className="font-display text-xl font-semibold text-white">
             Na čo slúži?
           </h2>
@@ -64,7 +64,7 @@ export default async function AboutPage() {
             {BENEFITS.map((item, i) => (
               <li
                 key={item.title}
-                className="rounded-2xl border border-line bg-panel-2/80 p-4"
+                className="gf-card p-4"
               >
                 <p className="text-xs font-medium text-accent">
                   {String(i + 1).padStart(2, "0")}
@@ -78,7 +78,7 @@ export default async function AboutPage() {
           </ol>
         </section>
 
-        <section className="space-y-3 rounded-2xl border border-line bg-panel/80 p-5 md:p-6">
+        <section className="space-y-3 gf-card p-5 md:p-6">
           <h2 className="font-display text-xl font-semibold text-white">
             Pre koho je
           </h2>
@@ -88,7 +88,7 @@ export default async function AboutPage() {
           </p>
         </section>
 
-        <aside className="rounded-2xl border border-accent/30 bg-accent/10 p-5 md:p-6">
+        <aside className="gf-card-elevated p-5 md:p-6">
           <p className="font-display text-lg font-medium leading-snug text-white">
             Jednou vetou: GrantFlow.sk je digitálny pomocník, ktorý robí európske dotácie
             pre slovenskú firmu zrozumiteľnejšie, rýchlejšie a bezpečnejšie.
