@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState } from "react";
 import {
@@ -6,6 +6,7 @@ import {
   type DnshStatus,
   runDnshAudit,
 } from "@/lib/api";
+import { UiButton } from "@/components/UiButton";
 
 const DEMO_BRIEF =
   "Zavedenie AI prediktívnej údržby do výroby: fotovoltika 100 kWp na streche haly, batériové úložisko, CNC modernizácia a monitoring spotreby energie v Banskej Bystrici.";
@@ -57,8 +58,8 @@ export function DashboardClient({ apiOnline }: { apiOnline: boolean | null }) {
   }
 
   return (
-    <div className="space-y-6">
-      <section className="animate-fade-up rounded-2xl border border-line bg-panel-2/80 p-5 md:p-6">
+    <div className="flex flex-1 flex-col space-y-6">
+      <section className="gf-card animate-fade-up p-5 md:p-6">
         <p className="text-xs uppercase tracking-[0.18em] text-muted">Profil spoločnosti</p>
         <h1 className="mt-1 font-display text-2xl font-semibold text-white md:text-3xl">
           InnoTech Slovakia s.r.o.
@@ -69,10 +70,7 @@ export function DashboardClient({ apiOnline }: { apiOnline: boolean | null }) {
       </section>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <section
-          id="vyzvy"
-          className="animate-fade-up-delay rounded-2xl border border-line bg-panel/80 p-5"
-        >
+        <section id="vyzvy" className="gf-card animate-fade-up-delay p-5">
           <h2 className="font-display text-lg font-semibold text-white">
             3 nové top zhody pre vás
           </h2>
@@ -83,7 +81,7 @@ export function DashboardClient({ apiOnline }: { apiOnline: boolean | null }) {
                 className="flex items-center justify-between gap-3 border-b border-line/60 pb-3 last:border-0"
               >
                 <span className="text-sm text-foreground">{m.code}</span>
-                <span className="rounded-full bg-accent/15 px-2.5 py-1 text-xs font-medium text-sky-300">
+                <span className="rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-sky-300">
                   Zhoda {m.score}%
                 </span>
               </li>
@@ -91,7 +89,7 @@ export function DashboardClient({ apiOnline }: { apiOnline: boolean | null }) {
           </ul>
         </section>
 
-        <section className="animate-fade-up-delay rounded-2xl border border-line bg-panel/80 p-5">
+        <section className="gf-card animate-fade-up-delay p-5">
           <h2 className="font-display text-lg font-semibold text-white">
             Blížiace sa uzávierky
           </h2>
@@ -110,7 +108,7 @@ export function DashboardClient({ apiOnline }: { apiOnline: boolean | null }) {
 
       <section
         id="ziadosti"
-        className="animate-fade-up rounded-2xl border border-accent/30 bg-gradient-to-br from-panel to-panel-2 p-5 md:p-6"
+        className="gf-card-elevated animate-fade-up p-5 md:p-6"
       >
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
@@ -130,11 +128,11 @@ export function DashboardClient({ apiOnline }: { apiOnline: boolean | null }) {
         </div>
 
         <div className="mt-5">
-          <div className="mb-1 flex justify-between text-xs text-muted">
+          <div className="mb-1.5 flex justify-between text-xs text-muted">
             <span>Progres</span>
             <span>{progress}%</span>
           </div>
-          <div className="h-2 overflow-hidden rounded-full bg-line/80">
+          <div className="h-2.5 overflow-hidden rounded-full bg-line/80">
             <div
               className="h-full rounded-full bg-accent transition-all duration-700"
               style={{ width: `${progress}%` }}
@@ -143,9 +141,8 @@ export function DashboardClient({ apiOnline }: { apiOnline: boolean | null }) {
         </div>
 
         <div className="mt-5 flex flex-wrap gap-3">
-          <button
-            type="button"
-            className="rounded-xl border border-line bg-background/40 px-4 py-2.5 text-sm font-medium text-foreground hover:border-accent/50"
+          <UiButton
+            variant="tonal"
             onClick={() =>
               alert(
                 "Proposal Drafter (Agent 3) príde v ďalšom kroku — zatiaľ použite DNSH Audit.",
@@ -153,22 +150,20 @@ export function DashboardClient({ apiOnline }: { apiOnline: boolean | null }) {
             }
           >
             Pokračovať v písaní s AI
-          </button>
-          <button
-            type="button"
+          </UiButton>
+          <UiButton
+            variant="filled"
             disabled={busy || apiOnline === false}
             onClick={onDnshAudit}
-            className="rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-accent/20 hover:bg-accent-soft disabled:cursor-not-allowed disabled:opacity-50"
           >
             {busy ? "Prebieha DNSH audit…" : "Spustiť DNSH Audit"}
-          </button>
-          <button
-            type="button"
-            className="rounded-xl border border-line px-4 py-2.5 text-sm text-muted hover:text-foreground"
+          </UiButton>
+          <UiButton
+            variant="outlined"
             onClick={() => alert("ITMS2021+ export — plánované (US 6.2)")}
           >
             Exportovať do ITMS2021+
-          </button>
+          </UiButton>
         </div>
 
         {apiOnline === false && (
@@ -181,7 +176,7 @@ export function DashboardClient({ apiOnline }: { apiOnline: boolean | null }) {
       </section>
 
       {assessment && (
-        <section className="animate-fade-up rounded-2xl border border-line bg-panel/90 p-5 md:p-6">
+        <section className="gf-card animate-fade-up p-5 md:p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="font-display text-lg font-semibold text-white">
               DNSH Audit — 6 cieľov
@@ -202,11 +197,11 @@ export function DashboardClient({ apiOnline }: { apiOnline: boolean | null }) {
             {assessment.findings.map((f) => (
               <article
                 key={f.objective_code}
-                className="rounded-xl border border-line bg-background/35 p-3"
+                className="rounded-2xl border border-line bg-background/35 p-3.5 shadow-[var(--elev-1)]"
               >
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="text-sm font-medium text-foreground">{f.objective_name_sk}</h3>
-                  <span className={`shrink-0 rounded-md border px-1.5 py-0.5 text-[10px] ${statusColor(f.status)}`}>
+                  <span className={`shrink-0 rounded-lg border px-1.5 py-0.5 text-[10px] ${statusColor(f.status)}`}>
                     {f.status}
                   </span>
                 </div>
